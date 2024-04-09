@@ -1,0 +1,179 @@
+
+	<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style1.css">
+   <script src="https://kit.fontawesome.com/0e01e8b488.js" crossorigin="anonymous"></script>
+    <title>Job Search</title>
+</head>
+<body>
+    <div id="container" class="container">
+		<!-- FORM SECTION -->
+		
+		<div class="row">
+			<!-- SIGN UP -->
+			<div class="col align-items-center flex-col sign-up">
+				<div class="form-wrapper align-items-center">
+					<div class="form sign-up">
+						<div class="input-group">
+        <i class="fa-solid fa-user"></i>
+        <input type="text" id="name" placeholder="Name">
+    </div>
+    <div class="input-group">
+        <i class='bx bxs-user'></i>
+        <input type="text" id="surname" placeholder="Surname">
+    </div>
+    <div class="input-group">
+        <i class='bx bxs-user'></i>
+        <input type="text" id="idNumber" placeholder="Id Number">
+    </div>
+    <div class="input-group">
+        <i class='bx bx-mail-send'></i>
+        <input type="email" id="email" placeholder="Email">
+    </div>
+    <div class="input-group">
+        <i class='bx bx-mail-send'></i>
+        <input type="text" id="phoneNumber" placeholder="Phone-number">
+    </div>
+    <div class="input-group">
+        <i class='bx bxs-lock-alt'></i>
+        <input type="password" id="password" placeholder="Password">
+    </div>
+    <div class="input-group">
+        <i class='bx bxs-lock-alt'></i>
+        <input type="password" id="confirmPassword" placeholder="Confirm password">
+    </div>
+						<button onclick="signUpUser()">
+						
+							Sign up
+						</button>
+						<p>
+							<span>
+								Already have an account?
+							</span>
+							<b onclick="toggle()" class="pointer">
+								Sign in here
+							</b>
+						</p>
+					</div>
+				</div>
+			
+			</div>
+			
+			<!-- END SIGN UP -->
+			<!-- SIGN IN -->
+			<div class="col align-items-center flex-col sign-in">
+				<div class="form-wrapper align-items-center">
+					<div class="form sign-in">
+						<div class="input-group">
+							<i class="fa-solid fa-user"></i>
+							<input type="email" id="Name" placeholder="Name">
+						</div>
+						
+						<div class="input-group">
+							<i class="fa-solid fa-user"></i>
+							<input type="email" id="loginEmail" placeholder="Email">
+						</div>
+						<div class="input-group">
+							<i class='bx bxs-lock-alt'></i>
+							<input type="password" id="loginPassword" placeholder="Password">
+						</div>
+						<button onclick="loginUser()">
+							Sign in
+						</button>
+						<p>
+							<b>
+								Forgot password?
+							</b>
+						</p>
+						<p>
+							<span>
+								Don't have an account?
+							</span>
+							<b onclick="toggle()" class="pointer">
+								Sign up here
+							</b>
+						</p>
+					</div>
+				</div>
+				<div class="form-wrapper">
+		
+				</div>
+			</div>
+			<!-- END SIGN IN -->
+		</div>
+		<!-- END FORM SECTION -->
+		<!-- CONTENT SECTION -->
+		<div class="row content-row">
+			<!-- SIGN IN CONTENT -->
+			<div class="col align-items-center flex-col">
+				<div class="text sign-in">
+					<h2>
+						sign up to see your career
+					</h2>
+	
+				</div>
+				<div class="img sign-in">
+		
+				</div>
+			</div>
+			<!-- END SIGN IN CONTENT -->
+			<!-- SIGN UP CONTENT -->
+			<div class="col align-items-center flex-col">
+				<div class="img sign-up">
+				
+				</div>
+				<div class="text sign-up">
+					<h2>
+						qualify with us
+					</h2>
+	
+				</div>
+			</div>
+			<!-- END SIGN UP CONTENT -->
+		</div>
+		<!-- END CONTENT SECTION -->
+	</div>
+	
+	<script src="script7.js"></script>
+    <script>
+
+    let container = document.getElementById('container');
+
+    toggle = () => {
+        container.classList.toggle('sign-in');
+        container.classList.toggle('sign-up');
+    };
+
+    setTimeout(() => {
+        container.classList.add('sign-in');
+    }, 200);
+
+    // Retrieve selected options from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const selectedOptionsParam = urlParams.get('selectedOptions');
+    const selectedOptions = JSON.parse(selectedOptionsParam);
+
+    function loginUser() {
+        var loginEmail = document.getElementById('loginEmail').value;
+        var loginPassword = document.getElementById('loginPassword').value;
+
+        if (loginEmail === '' || loginPassword === '') {
+            alert('Please fill in all fields');
+            return;
+        }
+
+        // Perform client-side navigation without involving a server
+        // Redirect to the next page (adjust the URL accordingly)
+        window.location.href = 'Third.html?selectedOptions=' + encodeURIComponent(JSON.stringify(selectedOptions));
+    }
+
+
+	
+	</script>
+</body>
+</html>
+
+

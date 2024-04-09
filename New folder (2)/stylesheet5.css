@@ -1,0 +1,84 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+	width:100%;
+}
+
+.container {
+    width: 800px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    text-align: center;
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: 500;
+    color: #333;
+}
+.marks {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Three columns */
+    gap: 20px;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* Style the remove button */
+.removeButton {
+    background-color: #7d2ae8; /* Lavender color */
+    color: white;
+    border: none;
+    border-radius: 50%; /* Make it a circle */
+    padding: 8px; /* Adjust padding to make it smaller */
+    cursor: pointer;
+    width: 30px; /* Adjust width to make it smaller */
+    height: 30px; /* Adjust height to make it smaller */
+}
+
+/* Style the remove button on hover */
+.removeButton:hover {
+    background-color: #653cad; /* Darker lavender color on hover */
+}
+
+.Aline {
+    border-top: 1px solid #7d2ae8;
+}
+
+/*
+.marks {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 20px;
+    align-items: center;
+    margin-top: 20px;
+}
+*/
+
+.Options,
+.level {
+    width: 100%;
+    height: 35px;
+    border: 2px solid #7d2ae8;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.button {
+    background-color: #7d2ae8;
+    border-radius: 20px;
+    height: 40px;
+    width: 50%;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
