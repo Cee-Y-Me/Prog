@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="stylesheet3.css">
+  <title>Institutions</title>
+</head>
+<body>
+
+<div class="container">
+  <div class="box purple">
+    <div class="content">
+      <button class="image-button" data-id="1" >
+        <img class="images" src="Images/Image4.png" alt="Image 1">
+        <p> UP </p>
+      </button>
+
+      <button class="image-button" data-id="2" >
+        <img class="images" src="Images/Image5.png" alt="Image 2">
+        <p> Wits </p>
+      </button>
+
+      <button class="image-button" data-id="3" >
+        <img class="images" src="Images/Image3.png" alt="Image 3">
+        <p> UJ </p>
+      </button>
+
+      <button class="image-button" data-id="4" >
+        <img class="images" src="Images/Image1.png" alt="Image 4">
+        <p> RBC </p>
+      </button>
+
+      <button class="image-button" data-id="5" >
+        <img class="images" src="Images/Image2.png" alt="Image 5">
+        <p> TUT </p>
+      </button>
+
+      <button class="image-button" data-id="6" >
+        <img class="images" src="Images/Image6.png" alt="Image 6">
+        <p> UFS </p>
+      </button>
+	  
+	  <div class="lavender-box"></div>
+	  
+    </div>
+	
+  </div>
+  <div class="place">
+    <button id="backButton" onclick="goBack()">BACK</button>
+  </div>
+</div>
+
+<div class="selected">
+  <ul id="selectedList"></ul>
+</div>
+
+<script>
+  // Function to fetch table names for the specified institution
+  function fetchTables(institution) {
+    fetch('get_tables.php?institution=' + institution)
+      .then(response => response.json())
+      .then(data => {
+        // Clear previous tables and buttons
+        document.getElementById('selectedList').innerHTML = '';
+        document.querySelector('.content').innerHTML = '';
+
+        // Create buttons for each table
+        data.tables.forEach(table => {
+          const button = document.createElement('button');
+          button.classList.add('image-button');
+          button.setAttribute('data-table', table);
+          button.textContent = table;
+          button.addEventListener('click', () => {
+            fetchTableData(institution, table);
+          });
+          document.querySelector('.content').appendChild(button);
+        });
+      })
+      .catch(error => console.error('Error fetching tables:', error)); // Log error to console
+  }
+
+  // Function to fetch data for the specified institution and table
+  function fetchTableData(institution, table) {
+    fetch('get_data.php?institution=' + institution + '&table=' + table)
+      .then(response => response.json())
+      .then(data => {
+        // Clear previous data
+        document.getElementById('selectedList').innerHTML = '';
+
+        // Create table
+        const ul = document.createElement('ul');
+        data.forEach(row => {
+          const li = document.createElement('li');
+          li.textContent = row;
+          ul.appendChild(li);
+        });
+        document.getElementById('selectedList').appendChild(ul);
+      })
+      .catch(error => console.error('Error fetching data:', error)); // Log error to console
+  }
+
+  // Get all buttons with class 'image-button'
+  const buttons = document.querySelectorAll('.image-button');
+
+  // Add click event listener to each button
+  buttons.forEach(button => {
+    button.addEventListener('click', () => {
+      // Get the institution name from the clicked button's <p> tag
+      const institution = button.querySelector('p').textContent.trim();
+      fetchTables(institution);
+    });
+  });
+</script>
+
+</body>
+</html>

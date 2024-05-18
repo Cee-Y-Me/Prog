@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="stylesheet3.css">
+  <title>Institutions</title>
+  <style>
+    .table-button {
+      font-size: 12px;
+      border: 2px solid lavender;
+      border-radius: 12px;
+      background-color: white;
+      padding: 8px 16px;
+      margin: 8px;
+      cursor: pointer;
+    }
+
+    /* Add hover effect */
+    .table-button:hover {
+      background-color: lavender;
+      color: white; 
+    }
+    /* Add styles for the lavender box */
+    .lavender-box {
+      display: none;
+      width: 200px;
+      height: 500px;
+      border: 10px solid lavender;
+      border-radius: 15px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+
+  
+    <div class="content">
+      <button class="image-button" data-id="1" onclick="loadTables('UP')">
+        <img class="images" src="Images/Image4.png" alt="Image 1">
+        <p> UP </p>
+      </button>
+
+      <button class="image-button" data-id="2" onclick="loadTables('wits')">
+        <img class="images" src="Images/Image5.png" alt="Image 2">
+        <p> Wits </p>
+      </button>
+
+      <button class="image-button" data-id="3" onclick="loadTables('UJ')">
+        <img class="images" src="Images/Image3.png" alt="Image 3">
+        <p> UJ </p>
+      </button>
+
+      <button class="image-button" data-id="4" onclick="loadTables('RBC')">
+        <img class="images" src="Images/Image1.png" alt="Image 4">
+        <p> RBC </p>
+      </button>
+
+      <button class="image-button" data-id="5" onclick="loadTables('tut')">
+        <img class="images" src="Images/Image2.png" alt="Image 5">
+        <p> TUT </p>
+      </button>
+
+      <button class="image-button" data-id="6" onclick="loadTables('UFS')">
+        <img class="images" src="Images/Image6.png" alt="Image 6">
+        <p> UFS </p>
+      </button>
+    </div>
+	
+	<div class="content2"></div>
+  
+  
+  
+  <div class="place">
+    <button id="backButton" onclick="goBack()">BACK</button>
+  </div>
+  
+</div>
+
+
+<script>
+ async function loadTables(institution) {
+  try {
+    const response = await fetch(`get_tables.php?institution=${institution}`);
+    const data = await response.json();
+
+    const content = document.querySelector('.content');
+    const lavenderBox = document.querySelector('.content2');
+    if (!content || !lavenderBox) {
+      console.error('Container element with class "content" or "content2" not found.');
+      return;
+    }
+
+    content.innerHTML = ''; // Clear existing buttons
+    data.tables.forEach(table => {
+      const button = document.createElement('button');
+      button.className = 'table-button';
+      button.innerText = table;
+      button.addEventListener('click', () => handleTableButtonClick(institution, table));
+      content.appendChild(button);
+    });
+  } catch (error) {
+    console.error('Error loading tables:', error.message);
+  }
+}
+
+async function loadCourses(institution, tableName) {
+  try {
+    const response = await fetch(`get_data.php?institution=${institution}&table=${tableName}`);
+    const data = await response.json();
+    const lavenderBox = document.querySelector('.content2');
+    if (!lavenderBox) {
+      console.error('Content2 element not found.');
+      return;
+    }
+    lavenderBox.innerHTML = '<h2>Courses</h2>'; // Clear previous content and add heading
+    if (data.courses && data.courses.length > 0) { // Ensure data.courses exists and has content
+      const ul = document.createElement('ul');
+      data.courses.forEach(course => {
+        const li = document.createElement('li');
+        li.textContent = course;
+        ul.appendChild(li);
+      });
+      lavenderBox.appendChild(ul);
+    } else {
+      lavenderBox.innerHTML += '<p>No courses available.</p>';
+    }
+  } catch (error) {
+    console.error('Error loading courses:', error.message);
+  }
+}
+
+function handleTableButtonClick(institution, tableName) {
+  console.log(`Table button clicked: ${tableName} for ${institution}`);
+  loadCourses(institution, tableName); // Call loadCourses function to load courses
+}
+
+  function goBack() {
+    loadDefaultInstitutions();
+    
+  }
+
+  async function loadDefaultInstitutions() {
+    try {
+      const content = document.querySelector('.content');
+      if (!content) {
+        console.error('Container element with class "content" not found.');
+        return;
+      }
+      // You may need to load default institutions differently based on your requirements
+      console.log('Load default institutions here.');
+    } catch (error) {
+      console.error('Error loading default institutions:', error.message);
+    }
+  }
+</script>
+
+</body>
+</html>
