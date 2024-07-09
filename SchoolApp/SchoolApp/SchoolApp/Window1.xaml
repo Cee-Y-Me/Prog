@@ -1,0 +1,118 @@
+﻿<Window x:Class="SchoolApp.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SchoolApp"
+        mc:Ignorable="d"
+        Width="1150" Height="690" MinWidth="1150" MinHeight="690" WindowStyle="None"
+        WindowStartupLocation="CenterScreen" AllowsTransparency="True" Background="Transparent">
+
+    <Border CornerRadius="10" Background="MediumPurple">
+        <Grid HorizontalAlignment="Left" Width="1150">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+
+            <Border Background="Lavender" CornerRadius="10 0 0 10" Height="NaN" Width="NaN" Margin="0,0,575,0"/>
+
+
+            <Border CornerRadius="7" Background="#ffffff" Margin="178,65,191,53" RenderTransformOrigin="0.524,0.406" >
+                <Border.Effect>
+                    <DropShadowEffect Direction="-130" BlurRadius="30" ShadowDepth="5" Opacity="0.1"/>
+                </Border.Effect>
+
+            </Border>
+            <Border Background="MediumPurple" CornerRadius="10 0 0 10" Height="NaN" Width="NaN" Margin="206,86,575,88"/>
+            <TextBlock Foreground="White" FontSize="18" FontWeight="Bold" Margin="345,222,713,440" RenderTransformOrigin="0.554,0.024" ><Run Text="Welcome"/><Run Language="en-gb" Text="!"/></TextBlock>
+
+            <Button Margin="289,536,657,116" FontWeight="Bold" Content="SIGN UP" Background="Lavender" Foreground="MediumPurple" Click="Button_Click" >
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <TextBox x:Name="Username" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="15" Text="Username" Foreground="Gray" Margin="290,325,658,334" >
+                <TextBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
+
+            <Border Background="Lavender" CornerRadius="0 10 10 0" Height="NaN" Width="NaN" Margin="575,86,222,88">
+                <TextBlock Foreground="MediumPurple" FontSize="18" FontWeight="Bold" Text="Welcome Back!" Margin="112,139,10,328" />
+            </Border>
+            <Image RenderOptions.BitmapScalingMode="HighQuality" Source="Images/avatar.png" Width="92" HorizontalAlignment="Left" Margin="344,127,0,473"/>
+
+            <Image RenderOptions.BitmapScalingMode="HighQuality" Source="Images/ava.png" Width="92" HorizontalAlignment="Left" Margin="710,127,0,473"/>
+            <TextBox x:Name="Password" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="15" Text="Password" Foreground="Gray" Margin="292,432,658,226" >
+                <TextBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
+            <TextBox x:Name="CPassword" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="15" Text="Confirm Password" Foreground="Gray" Margin="292,469,658,190"  >
+                <TextBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
+            <TextBlock Foreground="White" FontSize="15"  Margin="309,255,674,407" RenderTransformOrigin="0.503,0.405" ><Run Language="en-gb" Text="Create a new account "/><Run Text="!"/></TextBlock>
+            <TextBox VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="15" Text="Username" Foreground="Gray" Margin="651,338,297,314" >
+                <TextBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
+            <TextBox VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="15" Text="Password" Foreground="Gray" Margin="651,381,297,271" >
+                <TextBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
+            <TextBlock Foreground="MediumPurple" FontSize="15"  Margin="664,255,278,407" ><Run Language="en-gb" Text="Log into your existing account"/><Run Text="!"/></TextBlock>
+            <Button Margin="649,536,297,115" Content="LOG IN" FontWeight="Bold" Background="MediumPurple" Foreground="Lavender" >
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <TextBox x:Name="Name" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="15" Text="name" Foreground="Gray" Margin="290,288,658,370" >
+                <TextBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
+            <TextBox x:Name="Contact_Number" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="15" Text="Contact_Number" Foreground="Gray" Margin="290,361,658,298" >
+                <TextBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
+            <TextBox x:Name="Id_number" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="15" Text="ID_Number" Foreground="Gray" Margin="292,397,658,262" >
+                <TextBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
+        </Grid>
+
+    </Border>
+
+</Window>
+
