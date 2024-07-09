@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Boxicons -->
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+    <!-- My CSS -->
+    <link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="stylesC.css">
+    
+    <style>
+        /* Hide all main sections by default */
+        .main-section {
+            display: none;
+        }
+    </style>
+	<style>
+	/* Profile Pop-up Panel Styles */
+	.profile-popup {
+		position: fixed;
+		top: 0;
+		right: -100%; /* Initially hidden */
+		width: 300px;
+		height: 100%;
+		background-color: #fff;
+		z-index: 9999;
+		transition: right 0.3s ease-in-out;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+		overflow-y: auto;
+	}
+	
+	.profile-popup.open {
+		right: 0;
+	}
+	
+	.profile-details {
+		padding: 20px;
+	}
+	
+	/* Dark overlay */
+	.overlay {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.5);
+		z-index: 9998;
+		display: none; /* Initially hidden */
+	}
+	
+	.overlay.active {
+		display: block;
+	}
+</style	>
+<style>
+	.profile-card {
+    background-color: #fff;
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-img img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+	
+}
+
+.profile-info {
+    text-align: center;
+}
+
+.profile-name {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+}
+
+.profile-email {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #666;
+}
+
+.profile-bio {
+    margin: 10px 0;
+    font-size: 14px;
+    color: #777;
+}
+
+.profile-social {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.profile-social li {
+    display: inline;
+    margin-right: 10px;
+}
+
+.social-link {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+}
+
+.social-link:hover {
+    color: #007bff;
+}
+</style>
+<style>
+	/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  overflow: auto;
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+</style>
+    <title>My AdminHub</title>
+</head>
+<body>
+
+
+    <!-- SIDEBAR -->
+    <section id="sidebar">
+        <a href="#" class="brand">
+            <i class='bx bxs-smile'></i>
+			
+            <span class="text">MyTutor Hub</span>
+        </a>
+        <ul class="side-menu top">
+            <li class="active">
+                <a href="#" onclick="showSection('dashboard')">
+                    <i class='bx bxs-dashboard' ></i>
+                    <span class="text">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="#appointment" onclick="showSection('appointment')">
+                    <i class='bx bxs-shopping-bag-alt' ></i>
+                    <span class="text">Appointment</span>
+                </a>
+            </li>
+        
+            <li>
+                <a href="#message" onclick="showSection('message')">
+                    <i class='bx bxs-message-dots' ></i>
+                    <span class="text">Message</span>
+                </a>
+            </li>
+
+			<li>
+                <a href="#profile" onclick="showSection('profile')">
+                    <i class='bx bxs-user' ></i>
+                    <span class="text">profile</span>
+                </a>
+            </li>
+
+			<li>
+                <a href="#contact-us" onclick="showSection('contact-us')">
+                    <i class='bx bxs-user' ></i>
+                    <span class="text">Contact Us</span>
+                </a>
+            </li>
+           
+        </ul>
+        <ul class="side-menu">
+            <li>
+                <a href="#setting" onclick="showSection('setting')">
+                    <i class='bx bxs-cog' ></i>
+                    <span class="text">Settings</span>
+                </a>
+            </li>
+            <li>
+                <a href="#logout" onclick="showSection('logout')" class="logout">
+                    <i class='bx bxs-log-out-circle' ></i>
+                    <span class="text">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+    <!-- SIDEBAR -->
+
+
+
+    <!-- CONTENT -->
+    <section id="content">
+        <!-- NAVBAR -->
+        <nav>
+            <i class='bx bx-menu' ></i>
+            <a href="#" class="nav-link">Categories</a>
+            <form action="#">
+                <div class="form-input">
+                    <input type="search" placeholder="Search...">
+                    <button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
+                </div>
+            </form>
+            <input type="checkbox" id="switch-mode" hidden>
+            <label for="switch-mode" class="switch-mode"></label>
+            <a href="#" class="notification">
+                <i class='bx bxs-bell' ></i>
+                <span class="num">8</span>
+            </a>
+            <a href="#" class="profile" id="profileBtn">
+                <img src="img/people.png">
+            </a>
+        </nav>
+        <!-- NAVBAR -->
+
+        <!-- MAIN -->
+        <main id="dashboard" class="main-section">
+            <!-- Dashboard content here -->
+			<div class="head-title">
+				<div class="left">
+					<h1>Dashboard</h1>
+					<ul class="breadcrumb">
+						<li>
+							<a href="#">Dashboard</a>
+						</li>
+						<li><i class='bx bx-chevron-right' ></i></li>
+						<li>
+							<a class="active" href="#">Home</a>
+						</li>
+					</ul>
+				</div>
+				<a href="#" class="btn-download">
+					<i class='bx bxs-cloud-download' ></i>
+					<span class="text">Download PDF</span>
+				</a>
+			</div>
+
+			<ul class="box-info">
+				<li>
+					<i class='bx bxs-calendar-check' ></i>
+					<span class="text">
+						<h3>1020</h3>
+						<p>No. Students</p>
+					</span>
+				</li>
+				<li>
+					<i class='bx bxs-group' ></i>
+					<span class="text">
+						<h3>2834</h3>
+						<p>Visitors</p>
+					</span>
+				</li>
+				<li>
+					<i class='bx bxs-dollar-circle' ></i>
+					<span class="text">
+						<h3>$2543</h3>
+						<p>Total Amount</p>
+					</span>
+				</li>
+			</ul>
+
+
+			<div class="table-data">
+				<div class="order">
+					<div class="head">
+						<h3>New request</h3>
+						<i class='bx bx-search' ></i>
+						<i class='bx bx-filter' ></i>
+					</div>
+					<table id="ordersTable">
+						<thead>
+							<tr>
+								<th>User</th>
+								<th>Date Order</th>
+								<th>Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									<img src="img/people.png">
+									<p>mahlatsi </p>
+								</td>
+								<td>01-10-2021</td>
+								<td><span class="status completed">Mathematics</span></td>
+							</tr>
+							<tr>
+								<td>
+									<img src="img/people.png">
+									<p>blessing</p>
+								</td>
+								<td>01-10-2021</td>
+								<td><span class="status pending">Physical Science</span><span class="status completed">life Science</span></td>
+							</tr>
+							<tr>
+								<td>
+									<img src="img/people.png">
+									<p>Alihandro</p>
+								</td>
+								<td>01-10-2021</td>
+								<td><span class="status process">Programming</span><span class="status pending">english</span><span class="status completed">sepedi</span></td>
+								
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>
+				<div class="todo">
+					<div class="head">
+						<h3>Revies</h3>
+						<i class='bx bx-plus' ></i>
+						<i class='bx bx-filter' ></i>
+					</div>
+					<ul class="todo-list">
+						<li class="completed">
+							<p>Mickey</p>
+							<div class="review-stars">
+								<i class='bx bxs-star'></i>
+								<i class='bx bxs-star'></i>
+								<i class='bx bxs-star'></i>
+								<i class='bx bxs-star'></i>
+								<i class='bx bx-star'></i> <!-- Empty star -->
+							</div>
+							<i class='bx bx-dots-vertical-rounded' ></i>
+						</li>
+						<li class="completed">
+							<p>john</p>
+							<div class="review-stars">
+								<i class='bx bxs-star'></i>
+								<i class='bx bxs-star'></i>
+								<i class='bx bxs-star'></i>
+								<i class='bx bx-star'></i> <!-- Empty star -->
+								<i class='bx bx-star'></i> <!-- Empty star -->
+							</div>
+							<i class='bx bx-dots-vertical-rounded' ></i>
+						</li>
+						<li class="not-completed">
+							<p>thabang</p>
+							<div class="review-stars">
+								<i class='bx bxs-star'></i>
+								<i class='bx bxs-star'></i>
+								<i class='bx bxs-star'></i>
+								<i class='bx bxs-star'></i> <!-- Empty star -->
+								<i class='bx bx-star'></i> <!-- Empty star -->
+							</div>
+							<i class='bx bx-dots-vertical-rounded' ></i>
+						</li>
+						<li class="completed">
+							<p>Andile</p>
+							<div class="review-stars">
+								<i class='bx bxs-star'></i>
+								<i class='bx bxs-star'></i>
+								<i class='bx bxs-star'></i>
+								<i class='bx bxs-star'></i> <!-- Empty star -->
+								<i class='bx bxs-star'></i> <!-- Empty star -->
+							</div>
+							<i class='bx bx-dots-vertical-rounded' ></i>
+						</li>
+						<li class="not-completed">
+							<p>Peter</p>
+							<div class="review-stars">
+								<i class='bx bxs-star'></i>
+								<i class='bx bxs-star'></i>
+								<i class='bx bx-star'></i>
+								<i class='bx bx-star'></i> <!-- Empty star -->
+								<i class='bx bx-star'></i> <!-- Empty star -->
+							</div>
+							<i class='bx bx-dots-vertical-rounded' ></i>
+						</li>
+					</ul>
+				</div>
+			</div>
+        </main>
+        <main id="appointment" class="main-section">
+            <!-- Appointment content here -->
+			<h1>appointment</h1>
+			<div class="calendar">
+				<div class="date-picker-container">
+					<input type="date" id="date-picker">
+					<button onclick="openAppointmentForm()">Schedule Appointment</button>
+				</div>
+				<div class="appointment-list" id="appointment-list">
+					<h2>Appointments</h2>
+					<!-- Appointments will be dynamically added here using JavaScript -->
+				</div>
+			</div>
+			
+			<div id="appointment-form" class="hidden">
+				<h2>Schedule Appointment</h2>
+				<form id="appointment-form">
+					<label for="time">Time:</label>
+					<input type="text" id="time" required><br>
+					<label for="place">Place:</label>
+					<input type="text" id="place" required><br>
+					<label for="subject">Subject:</label>
+					<input type="text" id="subject" required><br>
+					<button type="submit" onclick="submitAppointment()">Submit</button>
+				</form>
+			</div>
+			
+        </main>
+        
+		<main id="profile" class="main-section">
+            <!-- Message content here -->
+			
+			<div class="info">
+
+				<div class="user">
+				   <img src="img/pic-1.jpg" alt="">
+				   <h3>shaikh anas</h3>
+				   <p>student</p>
+				   <a href="#form-container" class="inline-btn">update profile</a>
+				</div>
+			 
+				<div class="box-container">
+			 
+				   <div class="box">
+					  <div class="flex">
+						 <i class="fas fa-bookmark"></i>
+						 <div>
+							<span>4</span>
+							<p>saved playlist</p>
+						 </div>
+					  </div>
+					  <a href="#" class="inline-btn">view playlists</a>
+				   </div>
+			 
+				   <div class="box">
+					  <div class="flex">
+						 <i class="fas fa-heart"></i>
+						 <div>
+							<span>33</span>
+							<p>videos liked</p>
+						 </div>
+					  </div>
+					  <a href="#" class="inline-btn">view liked</a>
+				   </div>
+			 
+				   <div class="box">
+					  <div class="flex">
+						 <i class="fas fa-comment"></i>
+						 <div>
+							<span>12</span>
+							<p>videos comments</p>
+						 </div>
+					  </div>
+					  <a href="#" class="inline-btn">view comments</a>
+				   </div>
+			 
+				</div>
+			 </div>
+			
+			 <section class="form-container">
+
+				<form action="" method="post" enctype="multipart/form-data">
+				   <h3>update profile</h3>
+				   <p>update name</p>
+				   <input type="text" name="name" placeholder="shaikh anas" maxlength="50" class="box">
+				   <p>update email</p>
+				   <input type="email" name="email" placeholder="shaikh@gmail.come" maxlength="50" class="box">
+				   <p>previous password</p>
+				   <input type="password" name="old_pass" placeholder="enter your old password" maxlength="20" class="box">
+				   <p>new password</p>
+				   <input type="password" name="new_pass" placeholder="enter your new password" maxlength="20" class="box">
+				   <p>confirm password</p>
+				   <input type="password" name="c_pass" placeholder="confirm your new password" maxlength="20" class="box">
+				   <p>update pic</p>
+				   <input type="file" accept="image/*" class="box">
+				   <input type="submit" value="update profile" name="submit" class="btn">
+				</form>
+			 
+			 </section>
+			
+        </main>
+        <main id="message" class="main-section">
+            <!-- Message content here -->
+        </main>
+
+		<main id="contact-us" class="main-section">
+            <!-- Message content here -->
+			<div class="row">
+
+				<div class="image">
+				   <img src="images/contact-img.svg" alt="">
+				</div>
+		  
+				<form action="" method="post">
+				   <h3>get in touch</h3>
+				   <input type="text" placeholder="enter your name" name="name" required maxlength="50" class="box">
+				   <input type="email" placeholder="enter your email" name="email" required maxlength="50" class="box">
+				   <input type="number" placeholder="enter your number" name="number" required maxlength="50" class="box">
+				   <textarea name="msg" class="box" placeholder="enter your message" required maxlength="1000" cols="30" rows="10"></textarea>
+				   <input type="submit" value="send message" class="inline-btn" name="submit">
+				</form>
+		  
+			 </div>
+		  
+			 <div class="box-container">
+		  
+				<div class="box">
+				   <i class="fas fa-phone"></i>
+				   <h3>phone number</h3>
+				   <a href="tel:1234567890">123-456-7890</a>
+				   <a href="tel:1112223333">111-222-3333</a>
+				</div>
+				
+				<div class="box">
+				   <i class="fas fa-envelope"></i>
+				   <h3>email address</h3>
+				   <a href="mailto:shaikhanas@gmail.com">shaikhanas@gmail.come</a>
+				   <a href="mailto:anasbhai@gmail.com">anasbhai@gmail.come</a>
+				</div>
+		  
+				<div class="box">
+				   <i class="fas fa-map-marker-alt"></i>
+				   <h3>office address</h3>
+				   <a href="#">flat no. 1, a-1 building, jogeshwari, mumbai, india - 400104</a>
+				</div>
+		  
+        </main>
+        
+        
+        <main id="setting" class="main-section">
+            <!-- Setting content here -->
+        </main>
+        <main id="logout" class="main-section">
+            <!-- Logout content here -->
+        </main>
+		<div class="profile-popup" id="profilePopup">
+			<!-- Profile details content here -->
+			<div class="profile-details">
+				<div class="profile-card">
+					<div class="profile-img">
+						<img src="img/people.png" alt="Profile Picture">
+					</div>
+					<div class="profile-info">
+						<h2 class="profile-name">John Doe</h2>
+						<p class="profile-email">john.doe@example.com</p>
+						<p class="profile-bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eget justo quis odio tempor efficitur.</p>
+						<ul class="profile-social">
+							<li><a href="#" class="social-link">Facebook</a></li>
+							<li><a href="#" class="social-link">Twitter</a></li>
+							<li><a href="#" class="social-link">LinkedIn</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="myModal" class="modal">
+		<!-- Modal content -->
+<div class="modal-content">
+	<span class="close">&times;</span>
+	<div id="modalContent">
+	  <p>User: <span id="modalUserName"></span></p>
+	  <p>Date Order: <span id="modalDate"></span></p>
+	  <p>Status: <span id="modalStatus"></span></p>
+	  <div class="modal-buttons">
+		<button id="acceptBtn">Accept</button>
+		<button id="declineBtn">Decline</button>
+	  </div>
+	</div>
+  </div>
+		</div>
+  
+    </section>
+    <!-- CONTENT -->
+    
+
+    <script src="script.js"></script>
+	<script src="calender.js"></script>
+    <script>
+        function showSection(sectionId) {
+            // Hide all main sections
+            var sections = document.querySelectorAll('.main-section');
+            sections.forEach(function(section) {
+                section.style.display = 'none';
+            });
+
+            // Show the selected section
+            var selectedSection = document.getElementById(sectionId);
+            if (selectedSection) {
+                selectedSection.style.display = 'block';
+            }
+        }
+    </script>
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+    const profileBtn = document.getElementById('profileBtn');
+    const profilePopup = document.getElementById('profilePopup');
+    const overlay = document.createElement('div');
+    overlay.classList.add('overlay');
+
+    // Add event listener to profile button
+    profileBtn.addEventListener('click', function() {
+        profilePopup.classList.toggle('open');
+        overlay.classList.toggle('active');
+
+        // Append or remove overlay based on popup state
+        if (profilePopup.classList.contains('open')) {
+            document.body.appendChild(overlay);
+        } else {
+            document.body.removeChild(overlay);
+        }
+    });
+
+    // Close profile popup when clicking outside of it
+    overlay.addEventListener('click', function() {
+        profilePopup.classList.remove('open');
+        overlay.classList.remove('active');
+        document.body.removeChild(overlay);
+    });
+});
+
+	</script>
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the <span> element that closes the modal
+    var closeBtn = document.getElementsByClassName("close")[0];
+
+    // Get the buttons
+    var acceptBtn = document.getElementById("acceptBtn");
+    var declineBtn = document.getElementById("declineBtn");
+
+    // When the user clicks on a table row, open the modal
+    var rows = document.querySelectorAll("#ordersTable tbody tr");
+    rows.forEach(function(row) {
+        row.addEventListener("click", function() {
+            modal.style.display = "block";
+            var user = row.querySelector("td:first-child p").textContent;
+            var date = row.querySelector("td:nth-child(2)").textContent;
+            var status = row.querySelector("td:nth-child(3)").textContent;
+            var modalUserName = document.getElementById("modalUserName");
+            var modalDate = document.getElementById("modalDate");
+            var modalStatus = document.getElementById("modalStatus");
+            modalUserName.textContent = user;
+            modalDate.textContent = date;
+            modalStatus.textContent = status;
+        });
+    });
+
+    // When the user clicks on <span> (x), close the modal
+    closeBtn.onclick = function() {
+        modal.style.display = "none";
+    };
+
+    // When the user clicks on Accept, close the modal
+    acceptBtn.onclick = function() {
+        modal.style.display = "none";
+        // Add your logic for accepting the order here
+    };
+
+    // When the user clicks on Decline, close the modal
+    declineBtn.onclick = function() {
+        modal.style.display = "none";
+        // Add your logic for declining the order here
+    };
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    };
+});
+
+
+	</script>
+</body>
+</html>

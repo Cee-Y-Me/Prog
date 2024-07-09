@@ -1,0 +1,25 @@
+.calendar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 20px;
+}
+
+.date-picker-container {
+    display: flex;
+    align-items: center;
+}
+
+.appointment-list {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.appointment-list h2 {
+    margin-top: 0;
+}
+
+.hidden {
+    display: none;
+}
